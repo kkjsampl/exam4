@@ -13,6 +13,10 @@
     $(document).ready(async function() {
       const pageno = getPageno();
       const result = await fetch(pageno);
+      if(result===null) {
+        alert("서버가 응답하지 않습니다")
+        location.href = "index.html";
+      }
       const pagination = getPagination(result);
       printContacts(result.contacts, $('#tbody'));
       printPagination(pagination, result.pageno, $('#pagination'));
@@ -25,29 +29,8 @@
     <header>
       <h1>ICIA</h1>
     </header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="mynavbar">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">HOME</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">LOGIN</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">JOIN</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">FIND</a>
-            </li>
-          </ul>
-          <form class="d-flex">
-            <input class="form-control me-2" type="text" placeholder="Search">
-            <button class="btn btn-primary" type="button">Search</button>
-          </form>
-        </div>
-      </div>
+    <nav>
+      <a type="button" href="index.html">HOME</a>
     </nav>
     <main>
       <aside>

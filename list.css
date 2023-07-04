@@ -17,12 +17,10 @@ header, nav, footer{
   margin-top: 10px;
   margin-bottom: 10px;
   border: 1px solid red;
-}
-
-header {
   padding: 0 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 main {

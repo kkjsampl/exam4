@@ -1,6 +1,12 @@
 function getPageno() {
-  const params = new URLSearchParams(location.search);
-  return params.get('pageno')===null? 1 : params.get('pageno');
+  const param = new URLSearchParams(location.search).get('pageno');
+  const pageno = parseInt(param);
+  if(isNaN(pageno))
+    return 1;
+  else if(pageno<1)
+    return 1;
+  else 
+    return pageno;
 }
 
 async function fetch(pageno, pagesize=10) {
@@ -12,8 +18,18 @@ async function fetch(pageno, pagesize=10) {
   }
 }
 
-function getPagination({pageno, pagesize, totalcount}) {
-  return { prev:0, start:1, end:5, next:6};
+function getPagination({pageno, pagesize, totalcount, blockSize=5}) {
+  const countOfPage = Math.ceil(totalcount/pagesize);
+  const prev = Math.floor((pageno-1)/blockSize)*blockSize;
+  const start = prev+1;
+  let end = prev + blockSize;
+  let next = end + 1;
+  if(end>=countOfPage) {
+    end = countOfPage;
+    next = 0;
+  }
+  console.log({prev, start, end, next, pageno})
+  return {prev, start, end, next, pageno};
 }
 
 function printContacts(contacts, $parent) {
