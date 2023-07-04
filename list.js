@@ -1,5 +1,6 @@
 function getPageno() {
-  return 1;
+  const params = new URLSearchParams(location.search);
+  return params.get('pageno')===null? 1 : params.get('pageno');
 }
 
 async function fetch(pageno, pagesize=10) {
