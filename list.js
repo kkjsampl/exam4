@@ -9,7 +9,7 @@ function getPageno() {
     return pageno;
 }
 
-async function fetch(pageno, pagesize=10) {
+async function fetch(pageno=1, pagesize=10) {
   try {
     return await $.ajax(`http://sample.bmaster.kro.kr/contacts?pageno=${pageno}&pagesize=${pagesize}`);
   } catch(err) {
@@ -28,11 +28,11 @@ function getPagination({pageno, pagesize, totalcount, blockSize=5}) {
     end = countOfPage;
     next = 0;
   }
-  console.log({prev, start, end, next, pageno})
   return {prev, start, end, next, pageno};
 }
 
-function printContacts(contacts, $parent) {
+function printContacts(contacts) {
+  const $parent = $('#tbody');
   for(c of contacts) {
     const html = `
       <tr>
@@ -46,7 +46,8 @@ function printContacts(contacts, $parent) {
   }
 }
 
-function printPagination({prev, start, end, next}, pageno, $parent) {
+function printPagination({prev, start, end, next, pageno}) {
+  const $parent = $('#pagination');
   if(prev>0) {
     const html =`
       <li class='page-item'>
